@@ -1,21 +1,21 @@
 from flask import Flask, render_template, request, redirect, flash
-from converterclass import CurrencyConverter
-import requests
-import urllib.request
-import json
+from converter import CurrencyConverter
+from forms import CurrencyForm
+from secret import secretkey
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = secretkey
 
 
 @app.route('/', methods=["GET", "POST"])
-def curr_convert():
-    if request.method == "POST":
-        from_amount = request.form['from_amount']
-        fromcurr = request.form['fromcurrcode']
-        tocurr = request.form['tocurrcode']
-        url = f'https://api.exchangerate.host/convert?from={fromcurr}&to={tocurr}'
-        converter = CurrencyConverter(url)
-        results = converter.convert(from_amount)
-        return render_template("converter.html", result=results)
+def curr_form():
+    form = CurrencyForm()
+    if form.validate_on_submit():
+        from_currency = form.fromcurr.data
+        to_currency = form.tocurr.data
+        amount = form.amount.data
+        converter = CurrencyConverter(from_currency, to_currency)
+        results = converter.convert(amount)
+        return render_template("converter.html", form=form, result=results)
     else:
-        return render_template("converter.html")
+        return render_template("converter.html", form=form)

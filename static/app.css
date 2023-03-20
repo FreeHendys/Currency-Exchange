@@ -1,5 +1,5 @@
 div {
-            background-color: white;
+            background: linear-gradient(0deg, rgba(34, 193, 195, 1) 35%, rgba(45, 142, 253, 1) 100%);
             padding-top: 2%;
             padding-left: 5%;
             padding-right: 5%;
@@ -14,4 +14,9 @@ div {
 
 body {
     background-color: rgb(199, 199, 199);
+}
+
+.form-label {
+    font-weight: bold;
+    color: white;
 }
