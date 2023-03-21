@@ -5,6 +5,7 @@ import requests
 class CurrencyConverter:
 
     def __init__(self, fromcurr, tocurr):
+        """Converter containing From currency, to currency, and api URL"""
         self.url = f'https://api.exchangerate.host/convert?from={fromcurr}&to={tocurr}'
         response = requests.get(self.url)
         data = response.json()
@@ -17,6 +18,7 @@ class CurrencyConverter:
         self.tocurr = self.currcodelist[1]
 
     def convert(self, from_amount):
+        """Converts amount from fromcurr to tocurr"""
         num = from_amount
         if num >= 0 and self.fromcurr in currencycodes and self.tocurr in currencycodes:
             to_amount = num * self.rate

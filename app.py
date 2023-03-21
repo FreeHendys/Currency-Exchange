@@ -9,6 +9,7 @@ app.config['SECRET_KEY'] = secretkey
 
 @app.route('/', methods=["GET", "POST"])
 def curr_form():
+    """Form to submit currency codes and amount"""
     form = CurrencyForm()
     if form.validate_on_submit():
         from_currency = form.fromcurr.data
